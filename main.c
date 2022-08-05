@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
 
 struct Rule {
     int i;
@@ -10,13 +11,15 @@ struct Rule {
 //prototypess
 struct Rule fillRule(struct Rule rule);
 int *make_random_board(int *board, int size);
+int *make_one_dot_board(int *board, int size);
 int *update_board(int *board, int *new_board, int size, struct Rule rule);
 void print_board(int *board, int size);
 
 int main() {
     int rule_key[8][3] = {{1,1,1},{1,1,0},{1,0,1},{1,0,0},{0,1,1},{0,1,0},{0,0,1},{0,0,0}};
 
-    int BOARD_SIZE = 80;
+    int FRAME_TIME = 100000;
+    int BOARD_SIZE = 83;
     int *board = (int *)malloc(sizeof(int) * BOARD_SIZE);
     int *temp_board = (int *)malloc(sizeof(int) * BOARD_SIZE);
     
@@ -24,16 +27,17 @@ int main() {
     time_t t;
     srand((unsigned) time(&t));
 
-    //fillRule test
+    //fillRule test - 102
     struct Rule rule;
-    rule.i = 102;
+    rule.i = 226;
 
     rule = fillRule(rule);
     
-    board = make_random_board(board, BOARD_SIZE);
-    for (int i = 0; i < 10000; i++) {
+    board = make_one_dot_board(board, BOARD_SIZE);
+    for (int i = 0; i < 100000; i++) {
         print_board(board, BOARD_SIZE);
         board = update_board(board, temp_board, BOARD_SIZE, rule);
+        usleep(FRAME_TIME);
     }
 }
 
@@ -52,6 +56,15 @@ struct Rule fillRule(struct Rule rule) {
 int *make_random_board(int *board, int size) {
     for (int i = 0; i < size; i++) {
         board[i] = rand() % 2;
+    }
+    return board;
+}
+
+int *make_one_dot_board(int *board, int size) {
+    int middle = (int) (size / 2);
+
+    for (int i = 0; i < size; i++) {
+        board[i] = (i != middle) ? 0 : 1;
     }
     return board;
 }
