@@ -29,13 +29,13 @@ int main() {
 
     //fillRule test - 102
     struct Rule rule;
-    rule.i = 73;
+    rule.i = 30;
 
     rule = fillRule(rule);
     
     board = make_one_dot_board(board, BOARD_SIZE);
 
-    for (int i = 0; i < 10000; i++) {
+    for (int i = 0; i < 1000; i++) {
         print_board(board, BOARD_SIZE);
         board = update_board(board, temp_board, BOARD_SIZE, rule);
         usleep(FRAME_TIME);
@@ -78,11 +78,11 @@ int *update_board(int *board, int *new_board, int size, struct Rule rule) {
     int bin;
     for (int i = 0; i < size; i++) {
         // left of current pos
-        cur[0] = ((i - 1) < 0) ? 0 : board[i - 1];
+        cur[0] = ((i - 1) < 0) ? board[size - 1] : board[i - 1];
         // current pos
         cur[1] = board[i];
         // right of current pos
-        cur[2] = ((i + 1) >= size) ? 0 : board[i + 1];
+        cur[2] = ((i + 1) >= size) ? board[0] : board[i + 1];
 
         bin = cur[2] + (cur[1] * 2) + (cur[0] * 4);
 
