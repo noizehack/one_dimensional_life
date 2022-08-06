@@ -167,7 +167,7 @@ void print_board(int *board, int size, char on_c, char off_c) {
 }
 // has print side effects
 void print_help(void) {
-    printf("USAGE: oneDlife [RULE] [START_CONDITION] [BOARD_SIZE] [FRAME_TIME] [GENERATIONS] [ON_CHAR] [OFF_CHAR]\n\n");
+    printf("USAGE: ./oneDlife [RULE] [START_CONDITION] [BOARD_SIZE] [FRAME_TIME] [GENERATIONS] [ON_CHAR] [OFF_CHAR]\n\n");
     printf("PARAMETER(DEFAULT): EXPLANATION\n");
     printf("RULE(30): 0-255\n");
     printf("START_CONDITION(0): 0 = one dot in center, 1 = random board\n");
@@ -177,5 +177,5 @@ void print_help(void) {
     printf("ON_CHAR('#'): ASCII character that is printed to represent a 1\n");
     printf("OFF_CHAR(' '): ASCII character that is printed to represent a 0\n");
     printf("\nEXAMPLE USAGE\n");
-    printf("oneDlife 30 1 160 10000 10000 @ .\n");
+    printf("./oneDlife 30 1 160 10000 10000 @ .\n");
 }
