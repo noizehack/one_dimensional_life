@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {
         int GENERATIONS = 1000;
         if (argc > 5) {
             int x = atoi(argv[5]);
-            GENERATIONS = (x > 0) ? x : 1000;
+            GENERATIONS = (x >= 0) ? x : 1000;
         }
         //on char
         char ON_CHAR = '#';
@@ -95,12 +95,20 @@ int main(int argc, char *argv[]) {
         }
         
         //main loop
-        int i = 0;
-        while(running && i < GENERATIONS) {
-            print_board(board, BOARD_SIZE, ON_CHAR, OFF_CHAR);
-            board = update_board(board, temp_board, BOARD_SIZE, rule);
-            usleep(FRAME_TIME);
-            i++;
+        if (GENERATIONS > 0) { //finite
+            int i = 0;
+            while(running && i < GENERATIONS) {
+                print_board(board, BOARD_SIZE, ON_CHAR, OFF_CHAR);
+                board = update_board(board, temp_board, BOARD_SIZE, rule);
+                usleep(FRAME_TIME);
+                i++;
+            }
+        } else { //infinite
+            while(running) {
+                print_board(board, BOARD_SIZE, ON_CHAR, OFF_CHAR);
+                board = update_board(board, temp_board, BOARD_SIZE, rule);
+                usleep(FRAME_TIME);
+            }
         }
         //free memmory and exit
         free(board);
@@ -173,7 +181,7 @@ void print_help(void) {
     printf("START_CONDITION(0): 0 = one dot in center, 1 = random board\n");
     printf("BOARD_SIZE(80): character width of the board\n");
     printf("FRAME_TIME(100000): uSecond delay between frames\n");
-    printf("GENERATIONS(1000): number of generations to print\n");
+    printf("GENERATIONS(1000): number of generations to print (will loop forever if 0)\n");
     printf("ON_CHAR('#'): ASCII character that is printed to represent a 1\n");
     printf("OFF_CHAR(' '): ASCII character that is printed to represent a 0\n");
     printf("\nEXAMPLE USAGE\n");
