@@ -45,7 +45,7 @@ to run with command line arguments:
 
 5. Generations:
   - number or generations to print
-  - integer larger than 1
+  - integer larger than 1, or 0 for infinite generations
   - default: 1000
 
 6. On Character:
