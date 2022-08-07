@@ -11,7 +11,7 @@ struct Rule {
 };
 
 //prototypess
-struct Rule fillRule(struct Rule rule);
+struct Rule fill_rule(struct Rule rule);
 int *make_random_board(int *board, int size);
 int *make_one_dot_board(int *board, int size);
 int *update_board(int *board, int *new_board, int size, struct Rule rule);
@@ -85,7 +85,7 @@ int main(int argc, char *argv[]) {
         srand((unsigned) time(&t));
         
         //fill out rule array
-        rule = fillRule(rule);
+        rule = fill_rule(rule);
         
         //make first board
         if (START_RND) {
@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
 }
 
 //functions
-struct Rule fillRule(struct Rule rule) {
+struct Rule fill_rule(struct Rule rule) {
     int x = rule.i;
     
     for (int i = 0; i < 8; i++) {
